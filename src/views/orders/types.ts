@@ -15,10 +15,11 @@ export interface IOrder {
   meal: Meal
   numOfPeople: number
   restaurant: Restaurant
-  dishes: Pick<IDish, 'name'> & { numOfServings: number }[]
+  dishes: (Pick<IDish, 'name'> & { numOfServings: number })[]
 }
 export type IStep1 = Pick<IOrder, 'meal' | 'numOfPeople'>
 export type IStep2 = Pick<IOrder, 'restaurant'>
+export type IStep3 = Pick<IOrder, 'dishes'>
 
 export type Meal = 'breakfast' | 'lunch' | 'dinner'
 export type Restaurant =

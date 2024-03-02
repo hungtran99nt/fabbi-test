@@ -6,7 +6,7 @@
     <div class="steps-content">
       <FormStep1 v-if="current === STEP._1" ref="formRefStep1" />
       <FormStep2 v-if="current === STEP._2" ref="formRefStep2" :order="order" />
-      <FormStep3 v-if="current === STEP._3" ref="formRefStep3" />
+      <FormStep3 v-if="current === STEP._3" ref="formRefStep3" :order="order" />
     </div>
 
     <div class="steps-action">
@@ -64,6 +64,7 @@ const next = async () => {
       case STEP._3: {
         const data = (await formRefStep3.value?.getForm()) || {}
         assignOrder(data)
+        current.value++
         return
       }
       case STEP.REVIEW:

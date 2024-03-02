@@ -15,6 +15,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
     "@vue/test-utils": "^2.4.4",
     "ant-design-vue": "4.x",
     "happy-dom": "^13.6.2",
