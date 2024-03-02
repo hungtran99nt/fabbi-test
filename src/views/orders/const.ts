@@ -9,14 +9,14 @@ export enum STEP {
 }
 
 export const MEAL: Record<string, Meal> = {
-  BREAKFIRST: 'breakfirst',
+  BREAKFAST: 'breakfast',
   DINNER: 'dinner',
   LUNCH: 'lunch'
 }
 export const mealOptions: DefaultOptionType[] = [
   {
-    label: 'Breakfirst',
-    value: MEAL.BREAKFIRST
+    label: 'Breakfast',
+    value: MEAL.BREAKFAST
   },
   {
     label: 'Dinner',

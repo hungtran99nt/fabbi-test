@@ -7,8 +7,8 @@ export interface IStepItem {
 export interface IDish {
   id: number
   name: string
-  restaurant: string
-  availableMeals: string[]
+  restaurant: Restaurant
+  availableMeals: Meal[]
 }
 
 export interface IOrder {
@@ -18,8 +18,9 @@ export interface IOrder {
   dishes: Pick<IDish, 'name'> & { numOfServings: number }[]
 }
 export type IStep1 = Pick<IOrder, 'meal' | 'numOfPeople'>
+export type IStep2 = Pick<IOrder, 'restaurant'>
 
-export type Meal = 'breakfirst' | 'lunch' | 'dinner'
+export type Meal = 'breakfast' | 'lunch' | 'dinner'
 export type Restaurant =
   | 'Mc Donalds'
   | 'Taco Bell'

@@ -6,7 +6,7 @@ import { useFormOrder } from '@/views/orders/useFormOrder'
 describe('useFormOrder.ts', () => {
   const { order, assignOrder } = useFormOrder()
   it('assign when empty', () => {
-    assignOrder({ meal: MEAL.BREAKFIRST })
-    expect(order).toEqual({ meal: MEAL.BREAKFIRST })
+    assignOrder({ meal: MEAL.BREAKFAST })
+    expect(order).toEqual({ meal: MEAL.BREAKFAST })
   })
 })
