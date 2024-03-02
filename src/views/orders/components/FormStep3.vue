@@ -41,7 +41,7 @@ import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons-vue'
 import type { FormInstance } from 'ant-design-vue/es/form'
 import type { NullableDateType } from 'ant-design-vue/es/vc-picker/interface'
 import type { DefaultOptionType } from 'ant-design-vue/es/select'
-import { computed, reactive, ref, watch } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
 
 import * as data from '@/assets/data.json'
 
@@ -103,6 +103,12 @@ watch(
   },
   { immediate: true }
 )
+
+onMounted(() => {
+  if (props.order && props.order.dishes) {
+    props.order.dishes.length > 0 && (formState.dishes = props.order.dishes)
+  }
+})
 
 defineExpose<IFormActionsExposed>({
   getForm: onSubmit

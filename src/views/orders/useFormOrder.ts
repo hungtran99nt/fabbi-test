@@ -12,7 +12,12 @@ export const useFormOrder = () => {
     }
   }
 
-  const clearOrder = () => (order.value = {})
+  const clearOrder = (listOfKey: (keyof IOrder)[] = []) => {
+    if (listOfKey.length === 0) order.value = {}
+    const curOrder = order.value
+    listOfKey.forEach((k) => delete curOrder[k])
+    order.value = { ...curOrder }
+  }
 
   return { order, assignOrder, clearOrder }
 }

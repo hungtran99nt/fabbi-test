@@ -4,19 +4,16 @@
     <Steps :current="current" :items="stepItems"></Steps>
 
     <div class="steps-content">
-      <FormStep1 v-if="current === STEP._1" ref="formRefStep1" />
+      <FormStep1 v-if="current === STEP._1" ref="formRefStep1" :order="order" />
       <FormStep2 v-if="current === STEP._2" ref="formRefStep2" :order="order" />
       <FormStep3 v-if="current === STEP._3" ref="formRefStep3" :order="order" />
+      <ReviewStep v-if="current === STEP.REVIEW" :order="order" />
     </div>
 
     <div class="steps-action">
       <Button v-if="current < stepItems.length - 1" type="primary" @click="next">Next</Button>
-      <Button
-        v-if="current == stepItems.length - 1"
-        type="primary"
-        @click="message.success('Processing complete!')"
-      >
-        Done
+      <Button v-if="current == stepItems.length - 1" type="primary" @click="submit">
+        Submit
       </Button>
       <Button v-if="current > 0" style="margin-left: 8px" @click="prev">Previous</Button>
     </div>
@@ -24,14 +21,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, unref, watch } from 'vue'
-import { Steps, Button, message } from 'ant-design-vue'
+import { Button, Steps, message } from 'ant-design-vue'
 import type { NullableDateType } from 'ant-design-vue/es/vc-picker/interface'
+import { ref, unref } from 'vue'
 
 import FormStep1 from './components/FormStep1.vue'
 import FormStep2 from './components/FormStep2.vue'
 import FormStep3 from './components/FormStep3.vue'
-
+import ReviewStep from './components/ReviewStep.vue'
 import { STEP, stepItems } from './const'
 import type { IFormActionsExposed } from './types'
 import { useFormOrder } from './useFormOrder'
@@ -40,7 +37,7 @@ const formRefStep1 = ref<NullableDateType<IFormActionsExposed>>()
 const formRefStep2 = ref<NullableDateType<IFormActionsExposed>>()
 const formRefStep3 = ref<NullableDateType<IFormActionsExposed>>()
 
-const { order, assignOrder } = useFormOrder()
+const { order, assignOrder, clearOrder } = useFormOrder()
 
 const current = ref<STEP>(STEP._1)
 
@@ -77,11 +74,28 @@ const next = async () => {
   }
 }
 
-const prev = () => current.value--
+const prev = () => {
+  const cur = unref(current)
+  switch (cur) {
+    case STEP._2: {
+      clearOrder(['restaurant'])
+      current.value--
+      return
+    }
+    case STEP._3: {
+      clearOrder(['dishes'])
+      current.value--
+      return
+    }
+    default:
+      return
+  }
+}
 
-watch(order, (cur) => {
-  console.log(cur)
-})
+const submit = () => {
+  message.success('Processing complete!')
+  console.log('👀 ====> submit:', order.value)
+}
 </script>
 <style scoped>
 .steps-content {

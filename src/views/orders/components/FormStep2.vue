@@ -13,7 +13,7 @@ import { Form, FormItem, Select } from 'ant-design-vue'
 import type { FormInstance, Rule } from 'ant-design-vue/es/form'
 import type { NullableDateType } from 'ant-design-vue/es/vc-picker/interface'
 import type { DefaultOptionType } from 'ant-design-vue/es/select'
-import { reactive, ref, watch } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 
 import * as data from '@/assets/data.json'
 
@@ -50,6 +50,10 @@ watch(
   },
   { immediate: true }
 )
+
+onMounted(() => {
+  if (props.order) props.order.restaurant && (formState.restaurant = props.order.restaurant)
+})
 
 defineExpose<IFormActionsExposed>({
   getForm: onSubmit

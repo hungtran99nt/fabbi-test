@@ -11,13 +11,15 @@
   </div>
 </template>
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { Form, FormItem, InputNumber, Select } from 'ant-design-vue'
 import type { FormInstance, Rule } from 'ant-design-vue/es/form'
 import type { NullableDateType } from 'ant-design-vue/es/vc-picker/interface'
 
 import { mealOptions } from '../const'
-import type { IStep1, IFormActionsExposed } from '../types'
+import type { IStep1, IFormActionsExposed, IOrder } from '../types'
+
+const props = defineProps<{ order: Partial<IOrder> }>()
 
 const rules: Record<keyof IStep1, Rule[]> = {
   meal: [{ required: true, message: 'Please select a meal', trigger: 'change' }],
@@ -35,6 +37,13 @@ const onSubmit = async (): Promise<IStep1> => {
   const data = formRef.value?.getFieldsValue() as IStep1
   return data
 }
+
+onMounted(() => {
+  if (props.order) {
+    props.order.meal && (formState.meal = props.order.meal)
+    props.order.numOfPeople && (formState.numOfPeople = props.order.numOfPeople)
+  }
+})
 
 defineExpose<IFormActionsExposed>({
   getForm: onSubmit
