@@ -4,8 +4,8 @@
     <Steps :current="current" :items="stepItems"></Steps>
 
     <div class="steps-content">
-      <FormStep1 v-if="current === STEP._1" ref="formRefStep1" :dishes="data.dishes" />
-      <FormStep2 v-if="current === STEP._2" ref="formRefStep2" />
+      <FormStep1 v-if="current === STEP._1" ref="formRefStep1" />
+      <FormStep2 v-if="current === STEP._2" ref="formRefStep2" :order="order" />
       <FormStep3 v-if="current === STEP._3" ref="formRefStep3" />
     </div>
 
@@ -24,11 +24,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, unref } from 'vue'
+import { ref, unref, watch } from 'vue'
 import { Steps, Button, message } from 'ant-design-vue'
 import type { NullableDateType } from 'ant-design-vue/es/vc-picker/interface'
-
-import * as data from '../../assets/data.json'
 
 import FormStep1 from './components/FormStep1.vue'
 import FormStep2 from './components/FormStep2.vue'
@@ -55,12 +53,12 @@ const next = async () => {
         const data = (await formRefStep1.value?.getForm()) || {}
         assignOrder(data)
         current.value++
-        console.log(order)
         return
       }
       case STEP._2: {
         const data = (await formRefStep2.value?.getForm()) || {}
         assignOrder(data)
+        current.value++
         return
       }
       case STEP._3: {
@@ -79,6 +77,10 @@ const next = async () => {
 }
 
 const prev = () => current.value--
+
+watch(order, (cur) => {
+  console.log(cur)
+})
 </script>
 <style scoped>
 .steps-content {
