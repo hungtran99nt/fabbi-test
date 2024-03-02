@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-5">
     <Descriptions :column="1" bordered>
       <DescriptionsItem label="Meal">{{
         mealOptions.find((item) => item.value === props.order.meal)?.label

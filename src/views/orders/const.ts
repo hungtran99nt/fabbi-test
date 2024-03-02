@@ -19,12 +19,12 @@ export const mealOptions: DefaultOptionType[] = [
     value: MEAL.BREAKFAST
   },
   {
-    label: 'Dinner',
-    value: MEAL.DINNER
-  },
-  {
     label: 'Lunch',
     value: MEAL.LUNCH
+  },
+  {
+    label: 'Dinner',
+    value: MEAL.DINNER
   }
 ]
 
@@ -41,7 +41,7 @@ export const RESTAURANT: Record<string, Restaurant> = {
 export const stepItems: IStepItem[] = [
   {
     title: 'Step 1',
-    subTitle: 'Meal, number of people'
+    subTitle: 'Meal, no. of people'
   },
   {
     title: 'Step 2',
@@ -49,7 +49,7 @@ export const stepItems: IStepItem[] = [
   },
   {
     title: 'Step 3',
-    subTitle: 'Dish, no of servings'
+    subTitle: 'Dish, no. of servings'
   },
   {
     title: 'Review'

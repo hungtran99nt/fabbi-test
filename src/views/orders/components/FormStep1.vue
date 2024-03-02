@@ -1,10 +1,14 @@
 <template>
   <div>
     <Form layout="vertical" label-align="left" ref="formRef" :model="formState" :rules="rules">
-      <FormItem label="Please select a meal" name="meal">
-        <Select :options="mealOptions" v-model:value="formState.meal" />
+      <FormItem label="Meal" name="meal">
+        <Select
+          :options="mealOptions"
+          v-model:value="formState.meal"
+          :placeholder="'Please select a meal'"
+        />
       </FormItem>
-      <FormItem label="Please enter no. of people" name="numOfPeople">
+      <FormItem class="w-100" label="No. of people" name="numOfPeople">
         <InputNumber :max="10" :min="1" v-model:value="formState.numOfPeople" />
       </FormItem>
     </Form>

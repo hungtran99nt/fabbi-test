@@ -1,30 +1,49 @@
 <template>
   <div>
-    <Form layout="vertical" label-align="left" ref="formRef" name="form_append" :model="formState">
-      <Space v-for="(dish, index) in formState.dishes" :key="dish.name" align="baseline">
-        <FormItem
-          label="Please select a dish"
-          :name="['dishes', index, 'name']"
-          :rules="{
-            required: true,
-            message: 'Please select a dish',
-            trigger: 'change'
-          }"
-        >
-          <Select :options="dishOptions" v-model:value="dish.name" />
-        </FormItem>
-        <FormItem
-          label="Please enter no. of servings"
-          :name="['dishes', index, 'numOfServings']"
-          :rules="{
-            required: true,
-            message: 'Please  enter no. of servings'
-          }"
-        >
-          <InputNumber v-model:value="dish.numOfServings" :max="10" :min="1" />
-        </FormItem>
-        <MinusCircleOutlined @click="remove(dish)" />
-      </Space>
+    <Form
+      layout="vertical"
+      :label-align="'left'"
+      ref="formRef"
+      name="form_append"
+      :model="formState"
+    >
+      <Row align="middle" :gutter="32" v-for="(dish, index) in formState.dishes" :key="dish.name">
+        <Col :xs="14" :md="14" :xl="12" :xxl="12">
+          <FormItem
+            label="Dish"
+            :name="['dishes', index, 'name']"
+            :rules="{
+              required: true,
+              message: 'Please select a dish',
+              trigger: 'change'
+            }"
+          >
+            <Select
+              :options="dishOptions"
+              v-model:value="dish.name"
+              :placeholder="'Please select a dish'"
+            />
+          </FormItem>
+        </Col>
+        <Col :xs="6" :md="6" :xl="8" :xll="8">
+          <FormItem
+            label="No. of servings"
+            :name="['dishes', index, 'numOfServings']"
+            :rules="{
+              required: true,
+              message: 'Please  enter no. of servings'
+            }"
+          >
+            <InputNumber v-model:value="dish.numOfServings" :max="10" :min="1" />
+          </FormItem>
+        </Col>
+        <Col :xs="4" :md="4" :xl="4" :xxl="4">
+          <Button class="text-red-500 focus:text-red-700" type="link" ghost @click="remove(dish)">
+            <MinusCircleOutlined /> Remove
+          </Button>
+        </Col>
+      </Row>
+
       <FormItem>
         <Button type="dashed" block @click="add">
           <PlusOutlined />
@@ -36,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { Button, Form, FormItem, InputNumber, Select, Space, message } from 'ant-design-vue'
+import { Button, Form, FormItem, InputNumber, Select, Row, Col, message } from 'ant-design-vue'
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons-vue'
 import type { FormInstance } from 'ant-design-vue/es/form'
 import type { NullableDateType } from 'ant-design-vue/es/vc-picker/interface'

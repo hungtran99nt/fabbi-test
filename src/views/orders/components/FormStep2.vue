@@ -1,8 +1,12 @@
 <template>
   <div>
     <Form layout="vertical" label-align="left" ref="formRef" :model="formState" :rules="rules">
-      <FormItem label="Please select a restaurant" name="restaurant">
-        <Select :options="restaurantOptions" v-model:value="formState.restaurant" />
+      <FormItem label="Restaurant" name="restaurant">
+        <Select
+          :options="restaurantOptions"
+          v-model:value="formState.restaurant"
+          :placeholder="'Please select a restaurant'"
+        />
       </FormItem>
     </Form>
   </div>

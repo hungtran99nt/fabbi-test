@@ -1,16 +1,17 @@
 <template>
   <div>
-    Order food
     <Steps :current="current" :items="stepItems"></Steps>
 
-    <div class="steps-content">
-      <FormStep1 v-if="current === STEP._1" ref="formRefStep1" :order="order" />
-      <FormStep2 v-if="current === STEP._2" ref="formRefStep2" :order="order" />
-      <FormStep3 v-if="current === STEP._3" ref="formRefStep3" :order="order" />
-      <ReviewStep v-if="current === STEP.REVIEW" :order="order" />
+    <div class="mt-5 border-dashed border-gray-200 rounded bg-slate-100">
+      <div class="pt-5 px-5">
+        <FormStep1 v-if="current === STEP._1" ref="formRefStep1" :order="order" />
+        <FormStep2 v-if="current === STEP._2" ref="formRefStep2" :order="order" />
+        <FormStep3 v-if="current === STEP._3" ref="formRefStep3" :order="order" />
+        <ReviewStep v-if="current === STEP.REVIEW" :order="order" />
+      </div>
     </div>
 
-    <div class="steps-action">
+    <div class="mt-5">
       <Button v-if="current < stepItems.length - 1" type="primary" @click="next">Next</Button>
       <Button v-if="current == stepItems.length - 1" type="primary" @click="submit">
         Submit
@@ -84,6 +85,10 @@ const prev = () => {
     }
     case STEP._3: {
       clearOrder(['dishes'])
+      current.value--
+      return
+    }
+    case STEP.REVIEW: {
       current.value--
       return
     }
